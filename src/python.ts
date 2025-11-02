@@ -865,8 +865,9 @@ export class PyObject {
       kwargs,
     );
 
-    py.Py_DecRef(args);
-    py.Py_DecRef(kwargs);
+    // NOTE: commenting these out fixed a segfault where python GC tried to free an already freed object
+    // py.Py_DecRef(args);
+    // py.Py_DecRef(kwargs);
 
     maybeThrowError();
 
