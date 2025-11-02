@@ -77,7 +77,8 @@ export type PythonConvertible =
   | { [key: string]: PythonConvertible }
   | Map<PythonConvertible, PythonConvertible>
   | Set<PythonConvertible>
-  | Callback;
+  | Callback
+  | ((...args: any[]) => any); // js function;
 
 export type PythonJSCallback = (
   kwargs: any,
