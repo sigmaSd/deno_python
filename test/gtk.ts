@@ -1,9 +1,11 @@
-import { kw, NamedArgument, type PyObject, python } from "../mod.ts";
+import { kw, type PyObject, python } from "../mod.ts";
 
 import {
   type Adw1_ as Adw_,
+  type Callback,
   DenoGLibEventLoop,
   type Gtk4_ as Gtk_,
+  NamedArgument,
   // deno-lint-ignore no-import-prefix
 } from "jsr:@sigma/gtk-py@0.7.0";
 
@@ -39,7 +41,7 @@ class MainWindow extends Gtk.ApplicationWindow {
     const button = Gtk.ToggleButton(
       new NamedArgument("label", "OFF"),
     );
-    const f = python.callback(this.onClick);
+    const f = python.callback(this.onClick) as Callback;
     button.connect("clicked", f);
     const vbox = Gtk.Box(
       new NamedArgument("orientation", Gtk.Orientation.VERTICAL),
@@ -59,14 +61,14 @@ class App extends Adw.Application {
   #win: MainWindow | undefined;
   constructor(kwArg: NamedArgument) {
     super(kwArg);
-    this.connect("activate", this.onActivate);
+    this.connect("activate", this.onActivate as Callback);
   }
   onActivate = python.callback((_kwarg, app: Gtk_.Application) => {
     new MainWindow(new NamedArgument("application", app)).present();
   });
 }
 
-const app = new App(kw`application_id=${"com.example.com"}`);
+const app = new App(kw`application_id=${"com.example.com"}` as NamedArgument);
 app.register();
 app.activate();
 el.start();

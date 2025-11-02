@@ -6,15 +6,13 @@
     "./ext/pip": "./ext/pip.ts"
   },
   "tasks": {
-    "check": "deno task check:mod && deno task check:ext && deno task check:examples",
-    "check:mod": "deno check --unstable-ffi mod.ts",
-    "check:ext": "deno check --unstable-ffi ext/*.ts",
-    "check:examples": "deno check --unstable-ffi examples/*.ts",
-    "test": "deno test --unstable-ffi -A test/test.ts && deno test -A --v8-flags=--expose-gc test/test_with_gc.ts",
-    "example:hello_python": "deno run -A --unstable-ffi examples/hello_python.ts",
-    "example:matplotlib": "deno run -A --unstable-ffi examples/matplotlib.ts",
-    "example:pip_import": "deno run -A --unstable-ffi examples/pip_import.ts",
-    "example:run_code": "deno run -A --unstable-ffi examples/run_code.ts",
-    "example:tensorflow": "deno run -A --unstable-ffi examples/tensorflow.ts"
-  }
+    "test": "deno test -A && deno test -A --v8-flags=--expose-gc test/test_with_gc.ts"
+  },
+  "exclude": [
+    "./test/bench.ts",
+    "./plugin.ts",
+    "./mod.bun.ts",
+    "./test/bun.test.js"
+  ],
+  "nodeModulesDir": "auto"
 }

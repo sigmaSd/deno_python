@@ -1,10 +1,5 @@
 # Python Bridge
 
-[![Tags](https://img.shields.io/github/release/denosaurs/deno_python)](https://github.com/denosaurs/deno_python/releases)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/python/mod.ts)
-[![checks](https://github.com/denosaurs/deno_python/actions/workflows/checks.yml/badge.svg)](https://github.com/denosaurs/deno_python/actions/workflows/checks.yml)
-[![License](https://img.shields.io/github/license/denosaurs/deno_python)](https://github.com/denosaurs/deno_python/blob/master/LICENSE)
-
 This module provides a seamless integration between JavaScript (Deno/Bun) and
 Python by integrating with the
 [Python/C API](https://docs.python.org/3/c-api/index.html). It acts as a bridge
@@ -20,7 +15,7 @@ simply using the existing python installation.
 Import any locally installed Python package, for example, `matplotlib`:
 
 ```ts
-import { python } from "https://deno.land/x/python/mod.ts";
+import { python } from "@sigma/python"; // or jsr:@sigma/python directly with deno
 
 const np = python.import("numpy");
 const plt = python.import("matplotlib.pyplot");
@@ -32,15 +27,11 @@ plt.plot(xpoints, ypoints);
 plt.show();
 ```
 
-When running, you **must** specify `--allow-ffi`, `--allow-env` and
-`--unstable-ffi` flags. Alternatively, you may also just specify `-A` instead of
-specific permissions since enabling FFI effectively escapes the permissions
-sandbox.
-
 ```shell
-deno run -A --unstable-ffi <file>
+deno run -A <file>
 ```
 
+<!--TODO
 ### Usage in Bun
 
 You can import from the `bunpy` NPM package to use this module in Bun.
@@ -56,7 +47,7 @@ const ypoints = np.array([3, 10]);
 
 plt.plot(xpoints, ypoints);
 plt.show();
-```
+```-->
 
 ### Dependencies
 
@@ -83,7 +74,7 @@ the provided `import` or `install` methods. The rest is handled automatically
 for you! Just take a look!
 
 ```ts
-import { pip } from "https://deno.land/x/python/ext/pip.ts";
+import { pip } from "@sigma/python/pip"; // or "jsr:@sigma/python/pip" directly in Deno
 
 const np = await pip.import("numpy");
 const plt = await pip.import("matplotlib", "matplotlib.pyplot");
@@ -97,8 +88,7 @@ plt.show();
 
 ## Documentation
 
-Check out the docs
-[here](https://doc.deno.land/https://deno.land/x/python/mod.ts).
+Check out the docs [here](https://jsr.io/@sigma/python).
 
 ## Python Installation
 
@@ -116,44 +106,3 @@ If the module fails to find Python, you can add the path to the Python in the
 the Python dynamic library, which is like `python310.dll` (Windows),
 `libpython310.dylib` (macOS) and `libpython310.so` (Linux) depending on
 platform.
-
-## Usage with docker
-
-Usage with docker is easiest done using the
-[`denoland/deno:bin` image](https://github.com/denoland/deno_docker?tab=readme-ov-file#using-your-own-base-image)
-along with the [official `python` image](https://hub.docker.com/_/python/).
-
-```Dockerfile
-ARG DENO_VERSION=1.38.2
-ARG PYTHON_VERSION=3.12
-
-FROM denoland/deno:bin-$DENO_VERSION AS deno
-FROM python:$PYTHON_VERSION
-
-# Copy and configure deno
-COPY --from=deno /deno /usr/local/bin/deno
-ENTRYPOINT ["/usr/local/bin/deno"]
-
-# Copy your project source
-COPY . .
-
-RUN ["run", "-A", "--unstable", "https://deno.land/x/python@0.4.2/examples/hello_python.ts"]
-```
-
-## Maintainers
-
-- DjDeveloper ([@DjDeveloperr](https://github.com/DjDeveloperr))
-- Elias Sjögreen ([@eliassjogreen](https://github.com/eliassjogreen))
-
-## Other
-
-### Contribution
-
-Pull request, issues and feedback are very welcome. Code style is formatted with
-`deno fmt` and commit messages are done following Conventional Commits spec.
-
-### Licence
-
-Copyright 2021, DjDeveloperr.
-
-Copyright 2023, the Denosaurs team. All rights reserved. MIT license.

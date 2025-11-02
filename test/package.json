@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "mitata": "^0.1.6"
+  "devDependencies": {
+    "mitata": "^1.0.34"
   }
 }
