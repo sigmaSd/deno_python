@@ -5,9 +5,9 @@ import { join } from "jsr:@std/path@^1/join";
 import { ensureDir } from "jsr:@std/fs@^1/ensure-dir";
 import { green, yellow } from "jsr:@std/fmt@^1/colors";
 
-import type { CacheLocation } from "jsr:@denosaurs/plug@^1/types";
-import { ensureCacheLocation } from "jsr:@denosaurs/plug@^1/download";
-import { hash } from "jsr:@denosaurs/plug@^1/util";
+import type { CacheLocation } from "jsr:@denosaurs/plug@1.1.0/types";
+import { ensureCacheLocation } from "jsr:@denosaurs/plug@1.1.0/download";
+import { hash } from "jsr:@denosaurs/plug@1.1.0/util";
 
 const sys = python.import("sys");
 const runpy = python.import("runpy");
